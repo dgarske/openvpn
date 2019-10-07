@@ -911,7 +911,9 @@ bool cipher_kt_mode_aead(const cipher_kt_t *cipher)
         case OV_WC_AES_128_GCM_TYPE:
         case OV_WC_AES_192_GCM_TYPE:
         case OV_WC_AES_256_GCM_TYPE:
+#if defined(HAVE_CHACHA) && defined(HAVE_POLY1305)
         case OV_WC_CHACHA20_POLY1305_TYPE:
+#endif
             return true;
         default:
             return false;

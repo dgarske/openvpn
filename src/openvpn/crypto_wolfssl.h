@@ -79,7 +79,11 @@
 #define OPENVPN_OP_DECRYPT      0
 
 #ifdef HAVE_AESGCM
-#define AESGCM_IV_SZ GCM_NONCE_MID_SZ
+#define AESGCM_IV_SZ 12
+#endif
+
+#ifndef OPENVPN_AEAD_TAG_LENGTH
+#define OPENVPN_AEAD_TAG_LENGTH 16
 #endif
 
 /** Generic cipher key type %context. */
@@ -503,14 +507,16 @@ OPENVPN_MODE_GCM,
 OPENVPN_MODE_OTHER,
 } cipher_modes;
 
-#define DES_KEY_LENGTH          DES_KEY_SIZE
-#define MD4_DIGEST_LENGTH       MD4_DIGEST_SIZE
+#define DES_KEY_LENGTH          8
+#define MD4_DIGEST_LENGTH       16
 #ifndef MD5_DIGEST_LENGTH
-#define MD5_DIGEST_LENGTH       WC_MD5_DIGEST_SIZE
+#define MD5_DIGEST_LENGTH       16
 #endif
 
 /* Set if variable length cipher */
+#ifndef EVP_CIPH_VARIABLE_LENGTH
 #define EVP_CIPH_VARIABLE_LENGTH 0x8
+#endif
 
 static inline bool cipher_kt_var_key_size(const cipher_kt_t *cipher)
 {

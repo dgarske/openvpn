@@ -455,7 +455,7 @@ void x509_setenv_track(const struct x509_track *xt, struct env_set *es,
                     {
                         for (i = 0; i < wolfSSL_sk_GENERAL_NAME_num(ext); i++)
                         {
-                            WOLFSSL_ASN1_OBJECT *oid =
+                            WOLFSSL_GENERAL_NAME *oid =
                                     wolfSSL_sk_GENERAL_NAME_value(ext, i);
                             char szOid[1024];
 
@@ -590,7 +590,7 @@ result_t x509_verify_cert_eku(openvpn_x509_cert_t *x509,
         msg(D_HANDSHAKE, "Validating certificate extended key usage");
         for (i = 0; i < wolfSSL_sk_GENERAL_NAME_num(eku); i++)
         {
-            WOLFSSL_ASN1_OBJECT *oid = wolfSSL_sk_GENERAL_NAME_value(eku, i);
+            WOLFSSL_GENERAL_NAME *oid = wolfSSL_sk_GENERAL_NAME_value(eku, i);
             char szOid[1024];
 
             if (wolfSSL_OBJ_obj2txt(szOid, sizeof(szOid), oid, 0) > 0)
